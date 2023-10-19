@@ -11,7 +11,7 @@ const {errorHandler} = require('./middlewares/errorHandlerMiddleware');
 const app = express();
 
 //mongoose
-mongoose.connect(`mongodb://127.0.0.1:27017/petstagram`)
+mongoose.connect(`mongodb://127.0.0.1:27017/crypto-table`)
     .then(() => console.log('DB Connected'))
     .catch(err => console.log('DB Error', err.message));
 
@@ -32,6 +32,6 @@ app.use(auth);
 //routes
 app.use(routes);
 //global error
-app.use(errorHandler);
+//app.use(errorHandler);
 
-app.listen(5000, console.log(`Server is listening on port 5000...`));
+app.listen(3000, console.log(`Server is listening on port 3000...`));
