@@ -36,9 +36,9 @@ router.get('/:cryptoId/details', async (req, res) => {
     const crypto = await cryptoManager.getOne(cryptoId).lean();
     //if do not have user: user?
     const isOwner = req.user?._id == crypto.owner._id;
-    const isBuyer = crypto.buyers.some(id => id == req.user?._id);
+    const isBuyer = crypto.buyers?.some(id => id == req.user?._id);
 
-    res.render('cryptos/details', { crypto, isOwner, isBuyer});
+    res.render('cryptos/details', { crypto, isOwner, isBuyer });
 });
 
 router.get('/:cryptoId/buy', isAuth, async (req, res) => {
@@ -60,13 +60,27 @@ router.get('/:cryptoId/delete', isAuth, async (req, res) => {
 
 router.get('/:cryptoId/edit', isAuth, async (req, res) => {
     const crypto = await cryptoManager.getOne(req.params.cryptoId).lean();
-    res.render('cryptos/edit', { crypto });
+
+    const paymentMethods = {
+        "crypto-wallet": "Crypto Wallet",
+        "credit-card": "Credit Card",
+        "debit-card": "Debit Card",
+        "paypal": "PayPal",
+    }
+
+    const payment = Object.keys(paymentMethods).map(key => ({
+        value: key,
+        label: paymentMethods[key],
+        isSelected: crypto.payment == key,
+    }));
+
+    res.render('cryptos/edit', { crypto, payment });
 });
 
 router.post('/:cryptoId/edit', isAuth, async (req, res) => {
     const cryptoId = req.params.cryptoId;
     const cryptoData = req.body;
-    1
+
     try {
         await cryptoManager.edit(cryptoId, cryptoData);
 
@@ -75,9 +89,6 @@ router.post('/:cryptoId/edit', isAuth, async (req, res) => {
         res.render('cryptos/edit', { error: 'Unable to update crypto!', ...cryptoData });
     }
 });
-
-
-
 
 module.exports = router;
 
