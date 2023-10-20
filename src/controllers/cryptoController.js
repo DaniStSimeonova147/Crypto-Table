@@ -31,5 +31,16 @@ router.post('/create', isAuth, async (req, res) => {
     }
 });
 
+router.get('/:cryptoId/details', async (req, res) => {
+    const cryptoId = req.params.cryptoId;
+    const crypto = await cryptoManager.getOne(cryptoId).lean();
+    //if do not have user: user?
+    const isOwner = req.user?._id == crypto.owner._id;
+
+    res.render('cryptos/details', { crypto, isOwner });
+});
+
+
+
 module.exports = router;
 
