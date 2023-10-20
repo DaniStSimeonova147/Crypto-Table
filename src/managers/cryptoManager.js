@@ -6,6 +6,17 @@ exports.getOne = (cryptoId) => Crypto.findById(cryptoId).populate('owner');
 
 exports.create = (cryptoData) => Crypto.create(cryptoData);
 
+exports.buy = async (userId, cryptoId) => {
+    const crypto = await Crypto.findById(cryptoId);
+
+    crypto.buyers.push(userId);
+    return crypto.save();
+};
+
+// exports.buy = async (userId, cryptoId) => {
+//     Crypto.findByIdAndUpdate(cryptoId, { $push: { buyers: userId } });
+// };
+
 exports.delete = (cryptoId) => Crypto.findByIdAndDelete(cryptoId);
 
 exports.edit = (cryptoId, cryptoData) => Crypto.findByIdAndUpdate(cryptoId, cryptoData);

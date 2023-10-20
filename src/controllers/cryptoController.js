@@ -32,12 +32,18 @@ router.post('/create', isAuth, async (req, res) => {
 });
 
 router.get('/:cryptoId/details', async (req, res) => {
-    const cryptoId = req.params.cryptoId;
+    const cryptoId = req.params.cryptoId
     const crypto = await cryptoManager.getOne(cryptoId).lean();
     //if do not have user: user?
     const isOwner = req.user?._id == crypto.owner._id;
 
     res.render('cryptos/details', { crypto, isOwner });
+});
+
+router.get('/:cryptoId/buy', isAuth, async (req, res) => {
+    await cryptoManager.buy(req.user._id, req.params.cryptoId);
+
+    res.redirect(`/cryptos/${req.params.cryptoId}/details`);
 });
 
 router.get('/:cryptoId/delete', isAuth, async (req, res) => {
@@ -59,7 +65,7 @@ router.get('/:cryptoId/edit', isAuth, async (req, res) => {
 router.post('/:cryptoId/edit', isAuth, async (req, res) => {
     const cryptoId = req.params.cryptoId;
     const cryptoData = req.body;
-
+1
     try {
         await cryptoManager.edit(cryptoId, cryptoData);
 
