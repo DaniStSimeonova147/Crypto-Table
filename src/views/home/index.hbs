@@ -7,8 +7,14 @@
     </div>
 
     <div class="coin-list">
-        {{#each cryptos}}
-        {{>crypto}}
-        {{/each}}
+    {{#each cryptos}}
+        <div class="coin">
+            <img src="{{image}}">
+            <div>
+                <h3>${{price}}</h3>
+                <p>{{name}}</p>
+            </div>
+        </div>
+    {{/each}}
     </div>
 </main>

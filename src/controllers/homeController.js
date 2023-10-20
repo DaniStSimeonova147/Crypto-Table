@@ -1,7 +1,11 @@
 const router = require('express').Router();
 
-router.get('/', (req, res) =>{
-    res.render('home');
+const cryptoManager = require('../managers/cryptoManager');
+
+router.get('/', async (req, res) =>{
+    const cryptos = await cryptoManager.getAll().lean();
+    res.render('home', {cryptos});
+
 });
 
 router.get('/404', (req, res) =>{

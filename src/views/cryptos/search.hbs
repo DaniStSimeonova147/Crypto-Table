@@ -13,10 +13,10 @@
             <button type="submit" class="btn-search">Search</button>
         </form>
 
-        {{#if crypto}}
+        {{#if cryptos}}
         <div class="search-result">
             <div class="search-list">
-                {{#each crypto}}
+                {{#each cryptos}}
                 {{>crypto}}
                 {{/each}}
             </div>

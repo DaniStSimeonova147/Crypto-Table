@@ -22,7 +22,8 @@ exports.delete = (cryptoId) => Crypto.findByIdAndDelete(cryptoId);
 exports.edit = (cryptoId, cryptoData) => Crypto.findByIdAndUpdate(cryptoId, cryptoData);
 
 exports.search = async (name, payment) => {
-    let crypto = this.getAll();
+    let crypto = await Crypto.find().lean();
+    //let crypto = this.getAll();
 
     if (name) {
         crypto = crypto.filter(x => x.name.toLowerCase() == name.toLowerCase());
