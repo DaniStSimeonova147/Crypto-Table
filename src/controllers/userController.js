@@ -18,9 +18,9 @@ router.post('/login', async (req, res) => {
 
         res.redirect('/');
 
-    } catch (err) {
-        res.render('users/login', { error: getErrorMessage(err) });
-    }
+    } catch (error) {
+        res.render('users/login', { error: getErrorMessage(error) });
+     }
 
 });
 
@@ -37,9 +37,9 @@ router.post('/register', async (req, res) => {
         res.cookie(TOKEN_KEY, token);
 
         res.redirect('/');
-    } catch (err) {
-        res.render('users/register', { error: getErrorMessage(err) });
-    }
+    } catch (error) {
+        res.render('users/register', { error: getErrorMessage(error) });
+     }
 
 });
 
