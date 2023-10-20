@@ -20,3 +20,16 @@ exports.buy = async (userId, cryptoId) => {
 exports.delete = (cryptoId) => Crypto.findByIdAndDelete(cryptoId);
 
 exports.edit = (cryptoId, cryptoData) => Crypto.findByIdAndUpdate(cryptoId, cryptoData);
+
+exports.search = async (name, payment) => {
+    let crypto = this.getAll();
+
+    if (name) {
+        crypto = crypto.filter(x => x.name.toLowerCase() == name.toLowerCase());
+    }
+
+    if (payment) {
+        crypto = crypto.filter(x => x.payment == payment);
+    }
+    return crypto;
+}
