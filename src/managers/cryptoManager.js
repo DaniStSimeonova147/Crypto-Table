@@ -23,7 +23,7 @@ exports.edit = (cryptoId, cryptoData) => Crypto.findByIdAndUpdate(cryptoId, cryp
 
 exports.search = async (name, payment) => {
     let crypto = await Crypto.find().lean();
-    //let crypto = this.getAll();
+    //let crypto = await this.getAll();
 
     if (name) {
         crypto = crypto.filter(x => x.name.toLowerCase() == name.toLowerCase());

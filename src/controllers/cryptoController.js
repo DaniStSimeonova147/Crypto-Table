@@ -94,7 +94,7 @@ router.get('/search', async (req, res) => {
     const { name, payment } = req.query;
     const cryptos = await cryptoManager.search(name, payment);
 
-    res.render('cryptos/search', { cryptos });
+    res.render('cryptos/search', { cryptos, name });
 });
 
 module.exports = router;
